@@ -1,0 +1,161 @@
+/**
+ *  Copyright (c) 2009 - 2010 LOOKBACKON All rights reserved.
+ */
+package org.rcSpark.tools.time
+{
+	//--------------------------------------------------------------------------
+	//
+	//  Imports
+	//
+	//--------------------------------------------------------------------------
+	import flash.events.EventDispatcher;
+	import flash.events.IEventDispatcher;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
+	
+	/****
+	 * CountDown.as class.Created Aug 16, 2012 11:06:53 PM
+	 * <br>
+	 * Description:
+	 * @author ryan
+	 * @langversion 3.0
+	 ****/   	 
+	public class CountDown extends EventDispatcher
+	{		
+		//--------------------------------------------------------------------------
+		//
+		//  Variables
+		//
+		//--------------------------------------------------------------------------
+		private var countDowns:Object;
+		private static var _defaultCountDown:CountDown;
+		
+		//--------------------------------------------------------------------------
+		//
+		//  Constructor
+		//
+		//--------------------------------------------------------------------------
+		public function CountDown(target:IEventDispatcher=null)
+		{
+			super(target);
+			countDowns = new Object();
+		}
+		
+		//--------------------------------------------------------------------------
+		//
+		//  methods
+		//
+		//--------------------------------------------------------------------------
+		
+		/**
+		 * 默认计时器
+		 */		
+		public static function get defaultCountDown():CountDown
+		{
+			if (!_defaultCountDown)
+				_defaultCountDown = new CountDown();
+			return _defaultCountDown;
+		}
+		
+		/**
+		 * 获取Timer
+		 * 
+		 * @param name	名称
+		 * @return 
+		 * 
+		 */		
+		public function getCountDown(name:String):Timer
+		{
+			return countDowns[name];
+		}
+		
+		/**
+		 * 添加Timer
+		 * 
+		 * @param name	名称
+		 * @param loop	循环次数
+		 * @param interval	发布间隔
+		 * @param timeHander	每次事件
+		 * @param completeHandler	结束事件
+		 * 
+		 */		
+		public function addCountDown(name:String,loop:int,interval:int,timeHander:Function=null,completeHandler:Function=null):void
+		{
+			removeCountDown(name);
+			
+			var timer:Timer = new Timer(interval,loop);
+			timer.addEventListener(TimerEvent.TIMER,timeHander,false,0,true);//监听 自动销毁
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE,completeHandler,false,0,true);//监听 自动销毁
+			timer.addEventListener(TimerEvent.TIMER_COMPLETE,destoryHandler);
+			timer.start();
+			
+			countDowns[name] = timer;
+		}
+		
+		private function destoryHandler(event:TimerEvent):void
+		{
+			var timer:Timer = event.currentTarget as Timer;
+			removeCountDown(getCountDownName(timer));
+		}
+		
+		/**
+		 * 删除Timer
+		 * 
+		 * @param name	名称
+		 * 
+		 */		
+		public function removeCountDown(name:String):void
+		{
+			var timer:Timer = getCountDown(name);
+			if (!timer)
+				return;
+			timer.removeEventListener(TimerEvent.TIMER_COMPLETE,destoryHandler);
+			timer.stop();
+			delete countDowns[name];
+		}
+		
+		/**
+		 * 延迟Timer
+		 * 
+		 * @param name	名称
+		 * @param interval	间隔
+		 * 
+		 */		
+		public function resetCountDown(name:String,interval:int):void
+		{
+			var timer:Timer = getCountDown(name);
+			if (timer)
+				timer.delay = interval;
+		}
+		
+		/**
+		 * 返回Timer在类里的名称
+		 * 
+		 * @param timer	Timer对象
+		 * @return 
+		 * 
+		 */
+		public function getCountDownName(timer:Timer):String
+		{
+			for (var key:* in countDowns)
+			{
+				if (countDowns[key] == timer)
+					return key.toString();
+			}
+			return null;
+		}
+		
+		/**
+		 * 销毁方法
+		 * 
+		 */		
+		public function destroy():void
+		{
+			for (var name:* in countDowns)
+				removeCountDown(name);
+		}
+		
+	}
+	
+}
