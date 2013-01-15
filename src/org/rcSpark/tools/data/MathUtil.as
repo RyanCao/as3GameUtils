@@ -3,6 +3,8 @@
  */
 package org.rcSpark.tools.data
 {
+	import flash.utils.getQualifiedClassName;
+	
 	//--------------------------------------------------------------------------
 	//
 	//  Imports
@@ -135,6 +137,32 @@ package org.rcSpark.tools.data
 					result = arr[i];
 			}
 			return result;
+		}
+		/**
+		 * 二分查找
+		 * */
+		public static function binarySearch(keys:*, target:int):int
+		{
+			var keyCls:String = getQualifiedClassName(keys);
+			if (keyCls.search(/^(__AS3__.vec::Vector\.<\w+>)|(Array)$/)){
+				throw (TypeError("要使用二分查找，必须提供Array或者Vector！"));
+			};
+			
+			var high:int = keys.length;
+			var low:int = -1;
+			
+			while (high - low > 1)
+			{
+				var probe:int = (low + high) >>> 1; // Bit operations helps to speed up the process
+				if (keys[probe] > target){
+					high = probe;
+				}else if(keys[probe] < target){
+					low = probe;
+				}else{
+					return probe;
+				}
+			}
+			return (low == -1 || keys[low] !== target) ? -1 : low;
 		}
 	}
 	

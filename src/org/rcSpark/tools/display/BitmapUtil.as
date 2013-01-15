@@ -232,7 +232,103 @@ package org.rcSpark.tools.display
 				}
 			}
 		}
-		
+		/**
+		 * 分割ARGB
+		 * @param _arg1
+		 * @return 
+		 * 
+		 */		
+		public static function splitARGB(_arg1:uint):Object{
+			return ({
+				a:((_arg1 >> 24) & 0xFF),
+				r:((_arg1 >> 16) & 0xFF),
+				g:((_arg1 >> 8) & 0xFF),
+				b:(_arg1 & 0xFF)
+			});
+		}
+		/**
+		 * 消除空白像素 
+		 * @param sourceBitmap BitmapData
+		 * @return Object rect:bitmapData.rect<br>bitmapData:BitmapData
+		 * 
+		 */		
+		public static function trim(sourceBitmap:BitmapData):Object{
+			var destRect:Rectangle = sourceBitmap.rect.clone();
+			var defaultPixel32:uint = sourceBitmap.getPixel32(0, 0);
+			var h:int = 0;
+			var w:int = 0;
+			
+			//获取destRect.top
+			while (h < sourceBitmap.height) {
+				w = 0;
+				while (w < sourceBitmap.width) {
+					if (defaultPixel32 != sourceBitmap.getPixel32(w, h)){
+						break;
+					}
+					w++;
+				}
+				destRect.top++;
+				h++;
+			}
+			
+			//获取destRect.bottom
+			h = (sourceBitmap.height - 1);
+			while (h >= destRect.top) {
+				w = 0;
+				while (w < destRect.width) {
+					if (defaultPixel32 != sourceBitmap.getPixel32(w, h)){
+						break;
+					}
+					w++;
+				}
+				destRect.bottom--;
+				h--;
+			}
+			
+			//获取destRect.left
+			w = 0;
+			while (w < destRect.width) {
+				h = destRect.top;
+				while (h < destRect.bottom) {
+					if (defaultPixel32 != sourceBitmap.getPixel32(w, h)){
+						break;
+					}
+					h++;
+				}
+				destRect.left++;
+				w++;
+			}
+			
+			//获取destRect.right
+			w = (destRect.width - 1);
+			while (w >= destRect.left) {
+				h = destRect.top;
+				while (h < destRect.bottom) {
+					if (defaultPixel32 != sourceBitmap.getPixel32(w, h)){
+						break;
+					}
+					h++;
+				}
+				destRect.right--;
+				w--;
+			}
+			
+			//判断 是否是 空位图
+			if ((destRect.width <= 0) || (destRect.height <= 0)){
+				trace("空位图原样返回");
+				return ({
+					rect:sourceBitmap.rect.clone(),
+					bitmapData:sourceBitmap.clone()
+				});
+			}
+			
+			var destBitmap:BitmapData = new BitmapData(destRect.width, destRect.height, sourceBitmap.transparent, 0);
+			destBitmap.copyPixels(sourceBitmap, destRect, new Point(0, 0), null, null, true);
+			return ({
+				rect:destRect,
+				bitmapData:destBitmap
+			});
+		}
 	}
 	
 }
