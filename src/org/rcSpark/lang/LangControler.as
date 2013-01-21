@@ -20,8 +20,6 @@ package org.rcSpark.lang
 	
 	import mx.utils.StringUtil;
 	
-	import org.rcSpark.tools.text.StringUtil;
-	
 	/**
 	 * 语言改变事件
 	 * @eventType org.rcSpark.lang.LangEvent:LANG_CHANGED
@@ -96,9 +94,19 @@ package org.rcSpark.lang
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------
-		public function LangControler(target:IEventDispatcher=null)
+		/**
+		 * 任何一个参数设置,则该参数对应的属性不再受全局控制,fileName除外
+		 * @param fileName 文件名
+		 * @param fileDir 目录
+		 * @param extension 扩展名
+		 * @param locale 语言版本
+		 */
+		public function LangControler(fileName:String=null, fileDir:String=null, extension:String=null, locale:String=null)
 		{
-			super(target);
+			if (!fileDir || !extension || !locale)
+				_languageSet[this]=this;
+			if (fileName != null)
+				this.fileName=fileName;
 		}
 		
 		//-----------------------------------------------------------------------------
@@ -294,21 +302,6 @@ package org.rcSpark.lang
 		public static function removeLangauge(language:LangControler):void
 		{
 			delete _languageSet[language];
-		}
-		
-		/**
-		 * 任何一个参数设置,则该参数对应的属性不再受全局控制,fileName除外
-		 * @param fileName 文件名
-		 * @param fileDir 目录
-		 * @param extension 扩展名
-		 * @param locale 语言版本
-		 */
-		public function LangControler(fileName:String=null, fileDir:String=null, extension:String=null, locale:String=null)
-		{
-			if (!fileDir || !extension || !locale)
-				_languageSet[this]=this;
-			if (fileName != null)
-				this.fileName=fileName;
 		}
 		
 		/**
