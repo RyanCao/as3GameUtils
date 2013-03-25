@@ -135,28 +135,28 @@ package org.rcSpark.tools.encrypt
 			
 		}
 		private static function md5_cmn(q:Number, a:Number, b:Number, x:Number, s:Number, t:Number):Number {
-			return safe_add(bit_rol(safe_add(safe_add(a,q),safe_add(x,t)),s),b);
+			return safe_add(bit_rol(safe_add(safe_add(a, q), safe_add(x, t)), s), b);
 		}
 		private static function md5_ff(a:Number, b:Number, c:Number, d:Number, x:Number, s:Number, t:Number):Number {
-			return md5_cmn(b & c | ~ b & d,a,b,x,s,t);
+			return md5_cmn((b & c) | ((~b) & d), a, b, x, s, t);
 		}
 		private static function md5_gg(a:Number, b:Number, c:Number, d:Number, x:Number, s:Number, t:Number):Number {
-			return md5_cmn(b & d | c & ~ d,a,b,x,s,t);
+			return md5_cmn((b & d) | (c & (~d)), a, b, x, s, t);
 		}
 		private static function md5_hh(a:Number, b:Number, c:Number, d:Number, x:Number, s:Number, t:Number):Number {
 			return md5_cmn(b ^ c ^ d,a,b,x,s,t);
 		}
 		private static function md5_ii(a:Number, b:Number, c:Number, d:Number, x:Number, s:Number, t:Number):Number {
-			return md5_cmn(c ^ b | ~ d,a,b,x,s,t);
+			return md5_cmn(c ^ (b | (~d)), a, b, x, s, t);
 		}
 		private static function safe_add(x:Number, y:Number):Number {
-			var lsw:Number = (x & 65535)+(y & 65535);
+			var lsw:Number = (x & 0xFFFF)+(y & 0xFFFF);
 			var msw:Number = ((x >> 16)+(y >> 16))+(lsw >> 16);
-			return msw << 16 | lsw & 65535;
+			return msw << 16 | lsw & 0xFFFF;
 		}
 		private static function bit_rol(num:Number, cnt:Number):Number
 		{
-			return num << cnt | num >>> 32 - cnt;
+			return (num << cnt) | (num >>> (32 - cnt));
 		}
 		private static function str2binl(str:String):Array
 		{
@@ -171,15 +171,10 @@ package org.rcSpark.tools.encrypt
 		}
 		private static function binl2hex(binarray:Array):String
 		{
-			if (hexcase) {
-			} else {
-			}
-			var hex_tab:String = "0123456789abcdef";
-			var str:String = "";
-			var i:Number = 0;
-			while (i<(binarray.length*4)) {
-				str = str+(hex_tab.charAt(((binarray[i >> 2]) >> ((i%4*8)+4)) & 15)+hex_tab.charAt(((binarray[i >> 2]) >> (i%4*8)) & 15));
-				i++;
+			var str : String = new String("");
+			var tab : String = new String("0123456789abcdef");
+			for (var i : Number = 0; i < binarray.length * 4; i++) {
+				str += tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xF) + tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xF);
 			}
 			return str;
 		}
