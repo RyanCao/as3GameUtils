@@ -1,5 +1,6 @@
 package org.game.ui.controls {
 	import flash.display.SimpleButton;
+	
 	import org.game.ui.core.BaseUI;
 
 	/**
@@ -30,6 +31,7 @@ package org.game.ui.controls {
 			_simbutton = new SimpleButton(upstate,overstate,downstate,hitstate);
 			_lab = new Label();
 			_lab.mouseEnabled = false;
+			this.mouseEnabled = false ;
 			addChild(_simbutton);
 			addChild(_lab);
 			commitProperties();
@@ -50,6 +52,15 @@ package org.game.ui.controls {
 			_simbutton.width = _w ;
 			_simbutton.height = _h ;
 			_lab.setSize(_w, _h);
+		}
+		
+		public function set enable(b:Boolean):void{
+			_simbutton.enabled = b ;
+			_simbutton.mouseEnabled = _simbutton.mouseChildren = b ;
+		}
+		
+		public function get enable():Boolean{
+			return _simbutton.enabled ;
 		}
 		
 	}
