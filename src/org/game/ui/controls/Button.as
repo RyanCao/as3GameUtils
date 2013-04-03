@@ -22,8 +22,8 @@ package org.game.ui.controls {
 		}
 
 		private function init() : void {
-			_w = _defaultW;
-			_h = _defaultH;
+			super.measuredWidth = _defaultW;
+			super.measuredHeight = _defaultH;
 			upstate = new RectSprite(0x888888);
 			downstate = new RectSprite(0xdddddd);
 			overstate = new RectSprite(0xaaaaaa);
@@ -46,12 +46,12 @@ package org.game.ui.controls {
 		
 		override protected function commitProperties() : void {
 			super.commitProperties();
-			upstate.setSize(_w, _h);
-			overstate.setSize(_w, _h);
-			downstate.setSize(_w, _h);
-			_simbutton.width = _w ;
-			_simbutton.height = _h ;
-			_lab.setSize(_w, _h);
+			upstate.setSize(width,height);
+			overstate.setSize(width, height);
+			downstate.setSize(width, height);
+			_simbutton.width = width ;
+			_simbutton.height = height ;
+			_lab.setSize(width, height);
 		}
 		
 		public function set enable(b:Boolean):void{

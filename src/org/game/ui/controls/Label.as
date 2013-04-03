@@ -2,7 +2,8 @@ package org.game.ui.controls {
 	import flash.text.TextField;
 	
 	import org.game.ui.core.BaseUI;
-
+	
+	
 	/**
 	 * @author ryancao
 	 */
@@ -21,15 +22,15 @@ package org.game.ui.controls {
 			addChild(_textfield);
 			_textfield.selectable = false ;
 			_textfield.mouseEnabled = false ;
-			_w = defaultW ;
-			_h = defaultH ;
+			measuredWidth = defaultW ;
+			measuredHeight = defaultH ;
 			commitProperties();
 		}
 
 		override protected function commitProperties() : void {
 			super.commitProperties();
-			_textfield.width = _w ;
-			_textfield.height = _h ;
+			_textfield.width = width ;
+			_textfield.height = height ;
 		}
 		
 		public function get textfield() : TextField {

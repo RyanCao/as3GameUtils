@@ -28,15 +28,15 @@ package org.game.ui.controls {
 			_backSp.x = -1 ;
 			_backSp.y = -1 ;
 			addChild(_textfield);
-			_w = 120 ;
-			_h = 20 ;
+			measuredWidth = 120 ;
+			measuredHeight = 20 ;
 			commitProperties();
 		}
 		
 		override protected function commitProperties():void{
-			(_backSp as TextSpBg).setSize(_w+2,_h+2);
-			_textfield.width = _w;
-			_textfield.height = _h;
+			(_backSp as TextSpBg).setSize(width+2,height+2);
+			_textfield.width = width;
+			_textfield.height = height;
 		}
 		
 		public function get textField():TextField{
