@@ -134,5 +134,30 @@ package org.game.ui.managers
 		{
 			impl.destroyToolTip(toolTip);
 		}
+		
+		public static function registerToolTip(target:DisplayObject, oldToolTip:IToolTipData, newToolTip:IToolTipData):void
+		{
+			impl.registerToolTip(target, oldToolTip,newToolTip) ;
+		}
+		
+		public static function registerErrorString(target:DisplayObject, oldErrorString:IToolTipData, newErrorString:IToolTipData):void
+		{
+			impl.registerErrorString(target, oldErrorString,newErrorString) ;
+		}
+		
+		public static function sizeTip(toolTip:IToolTip):void
+		{
+			impl.sizeTip(toolTip);
+		}
+		
+		public static function createToolTip(data:IToolTipData, errorTipBorderStyle:String=null, context:IUIInterfaces=null):IToolTip
+		{
+			return impl.createToolTip(data,errorTipBorderStyle,context);
+		}
+		
+		public static function destroyToolTip(toolTip:IToolTip):void
+		{
+			impl.destroyToolTip(toolTip);
+		}
 	}
 }

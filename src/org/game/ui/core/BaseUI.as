@@ -28,6 +28,9 @@ package org.game.ui.core
 	import org.game.ui.styles.StyleDeclaration;
 	import org.game.ui.styles.StyleManager;
 	
+	//--------------------------------------
+	//  EVent
+	//--------------------------------------
 	[Event(name="add", type="org.game.ui.events.UIObjectEvent")]
 	
 	[Event(name="remove", type="org.game.ui.events.UIObjectEvent")]
@@ -35,6 +38,30 @@ package org.game.ui.core
 	[Event(name="creationComplete", type="org.game.ui.events.UIObjectEvent")]
 	
 	use namespace gameant ;
+	
+	//--------------------------------------
+	//  TextStyle
+	//--------------------------------------
+	[Style(name="fontFamily", type="String", inherit="yes")]
+	[Style(name="fontSize", type="Number", format="Length", inherit="yes")]
+	[Style(name="fontStyle", type="String", enumeration="normal,italic", inherit="yes")]
+	[Style(name="fontThickness", type="Number", inherit="yes")]
+	[Style(name="fontWeight", type="String", enumeration="normal,bold", inherit="yes")]
+	[Style(name="kerning", type="Boolean", inherit="yes")]
+	[Style(name="letterSpacing", type="Number", inherit="yes")]
+	[Style(name="textAlign", type="String", enumeration="left,center,right", inherit="yes")]
+	[Style(name="useTextGlow", type="Boolean", inherit="yes")]
+	[Style(name="textGlowColor", type="uint", format="Color", inherit="yes")]
+	
+	//--------------------------------------
+	//  textColor
+	//--------------------------------------
+	//[Style(name="color", type="uint", format="Color", inherit="yes")]
+	//[Style(name="disabledColor", type="uint", format="Color", inherit="yes")]
+	[Style(name="fontColor", type="uint", format="Color", inherit="yes")]
+	[Style(name="textSelectedColor", type="uint", format="Color", inherit="yes")]
+	[Style(name="textRollOverColor", type="uint", format="Color", inherit="yes")]
+	[Style(name="textDisabledColor", type="uint", format="Color", inherit="yes")]
 	
 	public class BaseUI extends Sprite implements IToolTipManagerClient, IDispose, IUIInterfaces , ILayoutManagerClient
 	{
@@ -78,7 +105,7 @@ package org.game.ui.core
 		{
 			var oldValue:IToolTipData = _toolTip;
 			_toolTip = value;
-			ToolTipManager.impl.registerToolTip(this, oldValue, value);
+			ToolTipManager.registerToolTip(this, oldValue, value);
 		}
 		
 		//----------- dispose ---------
@@ -264,8 +291,13 @@ package org.game.ui.core
 		{
 			if (!deferredSetStyles)
 				createStyle(true);
-			StyleDeclaration(deferredSetStyles).setStyle(styleProp, newValue);  
-			styleChanged = true;
+			if(StyleDeclaration(deferredSetStyles).getStyle(styleProp)!=newValue){
+				StyleDeclaration(deferredSetStyles).setStyle(styleProp, newValue);  
+				styleChanged = true;
+//				invalidateProperties();
+//				invalidateSize();
+//				invalidateDisplayList();
+			}
 		}
 		
 		protected function createStyle(useAnonymousStyle:Boolean = false):void
@@ -720,5 +752,22 @@ package org.game.ui.core
 //		{
 //			_styleManager = value;
 //		}
+		
+		//------------------------------
+		//		enabled
+		//------------------------------
+		private var _enabled:Boolean = true;
+		
+		public function get enabled():Boolean
+		{
+			return _enabled;
+		}
+		
+		public function set enabled(value:Boolean):void
+		{
+			_enabled = value;
+			
+			this.mouseEnabled = this.mouseChildren = value;
+		}
 	}
 }

@@ -1,35 +1,35 @@
 /*******************************************************************************
- * Class name:	CSSStyleDefine.as
+ * Class name:	LabelPlacement.as
  * Description:	
  * Author:		ryancao
- * Create:		Mar 27, 2013 4:51:08 PM
- * Update:		Mar 27, 2013 4:51:08 PM
+ * Create:		Apr 7, 2013 5:01:58 PM
+ * Update:		Apr 7, 2013 5:01:58 PM
  ******************************************************************************/
-package org.game.ui.styles
+package org.game.ui.controls.buttonClasses
 {
 	//-----------------------------------------------------------------------------
 	// import_declaration
 	//-----------------------------------------------------------------------------
 	
-	public class StyleConst
+	public class LabelPlacement
 	{
 		//-----------------------------------------------------------------------------
 		// Var
 		//-----------------------------------------------------------------------------
-		public static const GLOBAL:String = "global";
-		// ------- MANAGER ---------
-		public static const TOOLTIP:String = "org.game.ui.controls::tooltip";
+		public static const LEFT:String = "left";
 		
-		// ------- controls ---------
-		public static const APPLICATION:String = "org.game.ui.controls::Application";
-		public static const BUTTON:String = "org.game.ui.controls::Button" ;
-		public static const LABEL:String = "org.game.ui.controls::Label";
-		public static const TEXTINPUT:String = "org.game.ui.controls::Textinput";
+		public static const RIGHT:String = "right";
+		
+		public static const TOP:String = "top";
+		
+		public static const BOTTOM:String = "bottom";
+		
+		public static const MIDDLE:String = "middle";
 		
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------
-		public function StyleConst()
+		public function LabelPlacement()
 		{
 		}
 		

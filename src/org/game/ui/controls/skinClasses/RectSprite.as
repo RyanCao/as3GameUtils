@@ -1,40 +1,55 @@
 /*******************************************************************************
- * Class name:	CSSStyleDefine.as
+ * Class name:	RectSprite.as
  * Description:	
  * Author:		ryancao
- * Create:		Mar 27, 2013 4:51:08 PM
- * Update:		Mar 27, 2013 4:51:08 PM
+ * Create:		Apr 8, 2013 5:26:20 PM
+ * Update:		Apr 8, 2013 5:26:20 PM
  ******************************************************************************/
-package org.game.ui.styles
+package org.game.ui.controls.skinClasses
 {
 	//-----------------------------------------------------------------------------
 	// import_declaration
 	//-----------------------------------------------------------------------------
+	import flash.display.Sprite;
 	
-	public class StyleConst
+	
+	public class RectSprite extends Sprite
 	{
 		//-----------------------------------------------------------------------------
 		// Var
 		//-----------------------------------------------------------------------------
-		public static const GLOBAL:String = "global";
-		// ------- MANAGER ---------
-		public static const TOOLTIP:String = "org.game.ui.controls::tooltip";
-		
-		// ------- controls ---------
-		public static const APPLICATION:String = "org.game.ui.controls::Application";
-		public static const BUTTON:String = "org.game.ui.controls::Button" ;
-		public static const LABEL:String = "org.game.ui.controls::Label";
-		public static const TEXTINPUT:String = "org.game.ui.controls::Textinput";
+		private var _w:int = 80;
+		private var _h : int = 20 ;
+		private var _color : uint;
 		
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------
-		public function StyleConst()
+		public function RectSprite(c : uint=0xfe00fe)
 		{
+			_color = c ;
+			commitProperties();
 		}
 		
 		//-----------------------------------------------------------------------------
 		// Methods
 		//-----------------------------------------------------------------------------
+		public function setSize(w:int,h:int):void{
+			_w = w ;
+			_h = h ;
+			commitProperties();
+		}
+		
+		protected function commitProperties() : void {
+			graphics.clear();
+			graphics.beginFill(_color);
+			graphics.drawRect(0, 0, _w, _h);
+			graphics.endFill();
+		}
+		
+		public function set color(c : uint) : void {
+			this._color = c;
+			commitProperties();
+		}
 	}
 }

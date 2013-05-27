@@ -1,35 +1,32 @@
 /*******************************************************************************
- * Class name:	CSSStyleDefine.as
+ * Class name:	SkinState.as
  * Description:	
  * Author:		ryancao
- * Create:		Mar 27, 2013 4:51:08 PM
- * Update:		Mar 27, 2013 4:51:08 PM
+ * Create:		Apr 7, 2013 3:53:03 PM
+ * Update:		Apr 7, 2013 3:53:03 PM
  ******************************************************************************/
-package org.game.ui.styles
+package org.game.ui.controls.buttonClasses
 {
 	//-----------------------------------------------------------------------------
 	// import_declaration
 	//-----------------------------------------------------------------------------
 	
-	public class StyleConst
+	public class UIState
 	{
 		//-----------------------------------------------------------------------------
 		// Var
 		//-----------------------------------------------------------------------------
-		public static const GLOBAL:String = "global";
-		// ------- MANAGER ---------
-		public static const TOOLTIP:String = "org.game.ui.controls::tooltip";
+		public static const MOUSE_UP:String = "up";
 		
-		// ------- controls ---------
-		public static const APPLICATION:String = "org.game.ui.controls::Application";
-		public static const BUTTON:String = "org.game.ui.controls::Button" ;
-		public static const LABEL:String = "org.game.ui.controls::Label";
-		public static const TEXTINPUT:String = "org.game.ui.controls::Textinput";
+		public static const MOUSE_DOWN:String = "down";
 		
+		public static const MOUSE_OVER:String = "over";
+		
+		public static const DISABLED:String = "disable";
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------
-		public function StyleConst()
+		public function UIState()
 		{
 		}
 		

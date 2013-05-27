@@ -1,50 +1,72 @@
 /*******************************************************************************
- * Class name:	Application.as
+ * Class name:	SkinBase.as
  * Description:	
  * Author:		ryancao
- * Create:		Mar 29, 2013 5:27:57 PM
- * Update:		Mar 29, 2013 5:27:57 PM
+ * Create:		Apr 7, 2013 4:53:50 PM
+ * Update:		Apr 7, 2013 4:53:50 PM
  ******************************************************************************/
-package org.game.ui.controls
+package org.game.ui.controls.skinClasses
 {
 	//-----------------------------------------------------------------------------
 	// import_declaration
 	//-----------------------------------------------------------------------------
-	import org.game.gameant;
-	import org.game.ui.core.BaseUI;
-	import org.game.ui.core.IApplication;
-	import org.game.ui.core.UIComponentGlobals;
-	import org.game.ui.managers.LayoutManager;
-	import org.game.ui.managers.ToolTipManager;
-	import org.game.ui.preloaders.IApplicationPreloader;
-	import org.game.ui.styles.StyleConst;
+	import flash.display.DisplayObject;
 	
-	use namespace gameant;
-	public class Application extends BaseUI implements IApplication
+	import org.game.ui.core.BaseUI;
+	
+	
+	public class SkinBase extends BaseUI
 	{
 		//-----------------------------------------------------------------------------
 		// Var
 		//-----------------------------------------------------------------------------
+		private var _currentState:String = "";
+		private var _hitSkin:DisplayObject ;
 		
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------
-		public function Application()
+		public function SkinBase()
 		{
 			super();
-			_defaultStyleName = StyleConst.APPLICATION ;
-			UIComponentGlobals.layoutManager = LayoutManager.getInstance();
-			//ToolTipManager.defaultTooltipClass = ToolTip;
-			//TopViewManager.sm = SystemManagerGlobals.topLevelSystemManager;
 		}
 		
 		//-----------------------------------------------------------------------------
 		// Methods
 		//-----------------------------------------------------------------------------
-		public function get preloader():IApplicationPreloader
+		//------------------------------
+		//		currentState
+		//------------------------------
+		public function get currentState():String
 		{
-			// TODO Auto Generated method stub
-			return null;
+			return _currentState;
+		}
+		
+		public function set currentState(value:String):void
+		{
+			if(_currentState != value)
+			{
+				_currentState = value;
+				
+				stateChanged();
+			}
+		}	
+		
+		public function get hitSkin():DisplayObject
+		{
+			return _hitSkin;
+		}
+		
+		public function set hitSkin(value:DisplayObject):void
+		{
+			_hitSkin = value;
+			_hitSkin.alpha = 0;
+			this.addChild(hitSkin);
+		}
+		
+		protected function stateChanged():void
+		{
+			
 		}
 	}
 }

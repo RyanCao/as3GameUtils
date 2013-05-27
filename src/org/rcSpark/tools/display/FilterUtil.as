@@ -5,6 +5,7 @@ package org.rcSpark.tools.display
 {
 	import flash.display.DisplayObject;
 	import flash.filters.BitmapFilter;
+	import flash.filters.ColorMatrixFilter;
 	
 	import org.rcSpark.tools.core.CallLater;
 
@@ -123,6 +124,14 @@ package org.rcSpark.tools.display
 		private static function refreshFilterImmediy(displayObj:DisplayObject):void
 		{
 			displayObj.filters = displayObj.filters;
+		}
+		
+		public static function getBlackAndWhiteFilter():ColorMatrixFilter
+		{
+			return new ColorMatrixFilter([1,0,0,0,0,
+				1,0,0,0,0,
+				1,0,0,0,0,
+				0,0,0,1,0]);
 		}
 	}
 	

@@ -26,8 +26,9 @@ package org.game.ui.controls
 			initUI();
 		}
 		
-		override protected function commitProperties() : void {
-			super.commitProperties();
+		override protected function updateDisplayList(unscaleWidth:Number, unscaleHeight:Number):void
+		{
+			super.updateDisplayList(unscaleWidth,unscaleHeight);
 			drawUI();
 		}
 		

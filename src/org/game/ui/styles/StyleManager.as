@@ -50,5 +50,20 @@ package org.game.ui.styles
 		{
 			return impl.createAnonymousStyle(styleName);
 		}
+		
+		public static function registerStyleDeclaration(styleName:String, style:*):void
+		{
+			impl.registerStyleDeclaration(styleName, style);
+		}
+		
+		public static function getStyleDeclaration(styleName:String):StyleDeclaration
+		{
+			return impl.getStyleDeclaration(styleName);
+		}
+		
+		public static function createAnonymousStyle(styleName:String):StyleDeclaration
+		{
+			return impl.createAnonymousStyle(styleName);
+		}
 	}
 }

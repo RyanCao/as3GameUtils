@@ -2,7 +2,9 @@ package org.game.ui.controls {
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.text.TextField;
+	
 	import org.game.ui.core.BaseUI;
+	import org.game.ui.styles.StyleConst;
 
 	/**
 	 * @author ryan
@@ -14,6 +16,8 @@ package org.game.ui.controls {
 		private var _hlSp : DisplayObject;
 		
 		public function TextInput(backSp:Sprite=null, hlSp:Sprite = null) {
+			super();
+			_defaultStyleName = StyleConst.TEXTINPUT ;
 			_backSp = backSp;
 			_hlSp = hlSp;
 			initUI();
@@ -25,18 +29,20 @@ package org.game.ui.controls {
 				_backSp = new TextSpBg(); 
 			}
 			addChild(_backSp);
-			_backSp.x = -1 ;
-			_backSp.y = -1 ;
 			addChild(_textfield);
 			measuredWidth = 120 ;
 			measuredHeight = 20 ;
+			_textfield.x = 1 ;
+			_textfield.y = 1 ;
 			commitProperties();
 		}
 		
-		override protected function commitProperties():void{
-			(_backSp as TextSpBg).setSize(width+2,height+2);
-			_textfield.width = width;
-			_textfield.height = height;
+		override protected function updateDisplayList(unscaleWidth:Number, unscaleHeight:Number):void
+		{
+			super.updateDisplayList(unscaleWidth,unscaleHeight);
+			(_backSp as TextSpBg).setSize(unscaleWidth,unscaleHeight);
+			_textfield.width = unscaleWidth-2;
+			_textfield.height = unscaleHeight-2;
 		}
 		
 		public function get textField():TextField{
