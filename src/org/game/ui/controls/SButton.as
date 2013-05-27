@@ -57,7 +57,7 @@ package org.game.ui.controls {
 		
 		public function set enable(b:Boolean):void{
 			_simbutton.enabled = b ;
-			_simbutton.mouseEnabled = _simbutton.mouseChildren = b ;
+			_simbutton.mouseEnabled = b ;
 		}
 		
 		public function get enable():Boolean{
