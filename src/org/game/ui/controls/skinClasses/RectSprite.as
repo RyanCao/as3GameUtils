@@ -51,5 +51,33 @@ package org.game.ui.controls.skinClasses
 			this._color = c;
 			commitProperties();
 		}
+		
+		override public function get width():Number
+		{
+			return isNaN(_w) ? 0 : _w;
+		}
+		
+		override public function set width(value:Number):void
+		{
+			if(_w != value)
+			{
+				_w = value ;
+				commitProperties();
+			}
+		}
+		
+		override public function get height():Number
+		{
+			return isNaN(_h) ? 0 : _h;
+		}
+		
+		override public function set height(value:Number):void
+		{
+			if(_h != value)
+			{
+				_h = value ;
+				commitProperties();
+			}
+		}
 	}
 }

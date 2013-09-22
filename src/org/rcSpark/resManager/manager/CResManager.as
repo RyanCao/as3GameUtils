@@ -23,7 +23,17 @@ package org.rcSpark.resManager.manager
 	/****
 	 * ResMan.as class. Created 2:31:52 PM Sep 6, 2012
 	 * <br>
-	 * Description:
+	 * Description:var urlData :ResData  = new ResData(url);
+ 			CResManager.getInstance().load(urlData.resType, urlData.url, urlData.loadLevel, null, loadResComplete, null, onLoaderError);
+			 
+			參數說明： type 加載類型    url 加載文件地址  loadlevel 加載文件加載優先級   ct 加載文件加載的域  
+			onCompleteHandle 加載成功函數   onProgressHandle  加載進度函數  onErrorHandle  加載出錯函數
+			init 加載成功以後是否初始化 默認是二進制文件  ,isNew 加載成功以後是否新建一個實例
+			
+			onCompleteHandle： isNew 為否的時候用這個
+			mc = (ResManager.getInstance().getResByUrl(_url));
+			isNew 為真的時候用這個
+			mc = evt.res.content ;
 	 * @author ryan
 	 * @langversion 3.0
 	 * @playerversion Flash 10
@@ -313,6 +323,7 @@ package org.rcSpark.resManager.manager
 			if(loader.hasEventListener(ResEvent.ERROR))
 				loader.removeEventListener(ResEvent.ERROR, onErrorHandler);
 			var streamInfo:StreamInfo = loader.getResData() ;
+			trace("-----CResManager----LoadError--url--:"+streamInfo.url);
 			if(errorDic[streamInfo.url]==null)
 				errorDic[streamInfo.url] = true ;
 			if(streamInfo.onErrorHandle!=null)

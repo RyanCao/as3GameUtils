@@ -1,135 +1,112 @@
-/**
- *  Copyright (c) 2009 - 2010 LOOKBACKON All rights reserved.
- */
+/*******************************************************************************
+ * Class name:	SharedUtil.as
+ * Description:	
+ * Author:		caoqingshan
+ * Create:		Sep 4, 2013 1:50:05 PM
+ * Update:		Sep 4, 2013 1:50:05 PM
+ ******************************************************************************/
 package org.rcSpark.tools.data
 {
 	import flash.net.SharedObject;
-	import flash.utils.Dictionary;
 	
-	//--------------------------------------------------------------------------
-	//
-	//  Imports
-	//
-	//--------------------------------------------------------------------------
+	//-----------------------------------------------------------------------------
+	// import_declaration
+	//-----------------------------------------------------------------------------
 	
-	/****
-	 * SharedObjectUtil.as class. Created Jan 11, 2013 6:16:35 PM
-	 * <br>
-	 * Description:SharedObjectUtil.getInstance("abc").getData(key);
-	 * @author ryan
-	 * @langversion 3.0
-	 * @playerversion Flash 10
-	 ****/   	 
 	public class SharedObjectUtil
-	{		
-		//--------------------------------------------------------------------------
-		//
-		//  Variables
-		//
-		//--------------------------------------------------------------------------
-		public static var list:Dictionary = new Dictionary();
-		
-		public var name:String;
-		private var _so:SharedObject;
-		//--------------------------------------------------------------------------
-		//
-		//  Constructor
-		//
-		//--------------------------------------------------------------------------
-		public function SharedObjectUtil(key:String, _arg2:Singleton)
+	{
+		//-----------------------------------------------------------------------------
+		// Var
+		//-----------------------------------------------------------------------------
+		public static var localName:String = "sscq" ;
+		public static var cookieName:String = "sscqCookie" ;
+		//-----------------------------------------------------------------------------
+		// Constructor
+		//-----------------------------------------------------------------------------
+		public function SharedObjectUtil()
 		{
-			if (!_arg2){
-				throw (new TypeError("SharedObjectUtil.getInstance"));
-			};
-			this.name = key;
-			this._so = this.createSO();
 		}
 		
-		//--------------------------------------------------------------------------
-		//
-		//  methods
-		//
-		//--------------------------------------------------------------------------
-		public static function getInstance(key:String):SharedObjectUtil{
-			if (list[key])
-				return (list[key] as SharedObjectUtil);
-			var soUtil:SharedObjectUtil = new SharedObjectUtil(key, new Singleton());
-			list[key] = soUtil;
-			return soUtil;
-		}
+		//-----------------------------------------------------------------------------
+		// Methods
+		//-----------------------------------------------------------------------------
 		
-		private function createSO():SharedObject{
-			return SharedObject.getLocal(this.name);
-		}
-		
-		/**
-		 * ShareObject存数据 
-		 * @param dataObj  	数据
-		 * @param key		Key
-		 * 
-		 */		
-		public function save(dataObj:Object, key:String=""):void{
-			var _key:String;
-			if (key){
-				_key = key;
-				this._so.data[_key] = dataObj;
-			} else {
-				_key = ("auto_save_" + this.list().length);
-				this._so.data[_key] = dataObj;
-			}
-			this.flush();
-		}
-		
-		/**
-		 * 请求最小缓存空间 
-		 * @param minDiskSpace
-		 * @return 
-		 * 
-		 */		
-		public function flush(minDiskSpace:int=0):String{
-			return _so.flush(minDiskSpace);
+		public static function readSharedObject(key:String):*{
+			var _so:SharedObject = SharedObject.getLocal(localName) ;
+			return isExist(key) ? _so.data.cookie[key]:null ;
 		}
 		/**
-		 * 获取 数据 
+		 * 永久存取在机器上 
 		 * @param key
+		 * @param value
 		 * @return 
 		 * 
 		 */		
-		public function getData(key:String):Object{
-			return this._so.data[key];
-		}
-		/**
-		 * 删除数据 
-		 * @param key 键值
-		 * 
-		 */		
-		public function del(key:String):void{
-			delete this._so.data[key];
-		}
-		/**
-		 * 清空 缓存 
-		 */		
-		public function clear():void{
-			this._so.clear();
-		}
-		/**
-		 * 用Array取出全部SharedObject数据  
-		 * @return 
-		 * 
-		 */		
-		public function list():Array{
-			var key:String;
-			var rArrs:Array = [];
-			for (key in this._so.data) {
-				rArrs.push({name:key,value:this._so.data[key]});
+		public static function saveSharedObject(key:String,value:*):String{
+			var _so:SharedObject = SharedObject.getLocal(localName) ;
+			if(_so.data.cookie == null){
+				_so.data.cookie = {} ;
+				_so.flush();
 			}
-			return rArrs;
+			_so.data.cookie[key] = value ;
+			return _so.flush();
 		}
-	}
-}
-
-class Singleton {
-	
-	public function Singleton(){
+		
+		public static function readCookie(key:String):*{
+			var _so:SharedObject = SharedObject.getLocal(cookieName) ;
+			if(isExistCookie(key)){
+				var obj:Object = _so.data.cookie[key] ;
+				if(isTimeout(obj.time,obj.timeOut)){
+					delete _so.data.cookie[key];
+					_so.flush();
+					obj = null ;
+					return null ;
+				}else{
+					return obj.value ;
+				}
+			}
+			return null ;
+		}
+		
+		/**
+		 * 有时间限制的存取在机器上的Cookie
+		 * @param key
+		 * @param value
+		 * @param timeOut
+		 * @return 
+		 * 
+		 */		
+		public static function saveCookie(key:String,value:*,timeOut:Number=3600):String{
+			var _so:SharedObject = SharedObject.getLocal(cookieName) ;
+			var obj:Object = {} ;
+			if(isExistCookie(key))
+				obj = _so.data.cookie[key];
+			var today:Date = new Date();
+			obj.time = today.getTime().toString();
+			obj.timeOut = timeOut.toString();
+			obj.key = key;
+			obj.value = value;
+			if(_so.data.cookie == null){
+				_so.data.cookie = {} ;
+				_so.flush();
+			}
+			_so.data.cookie[key] = obj ;
+			return _so.flush();
+		}
+		
+		private static function isExist(key:String):Boolean{
+			var _so:SharedObject = SharedObject.getLocal(localName) ;
+			return _so.data.cookie != null && _so.data.cookie[key]!=null ;
+		}
+		
+		private static function isExistCookie(key:String):Boolean{
+			var _so:SharedObject = SharedObject.getLocal(cookieName) ;
+			return _so.data.cookie != null && _so.data.cookie[key]!=null ;
+		}
+		
+		private static function isTimeout(time:Number,timeOut:Number):Boolean{
+			var today:Date = new Date();
+			return time + timeOut*1000 < today.getTime();
+		}
 	}
 }

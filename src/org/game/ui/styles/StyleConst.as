@@ -26,6 +26,11 @@ package org.game.ui.styles
 		public static const LABEL:String = "org.game.ui.controls::Label";
 		public static const TEXTINPUT:String = "org.game.ui.controls::Textinput";
 		
+		public static const HSCROLLBAR:String = "org.game.ui.controls::HScrollBar";
+		public static const HSLIDER:String = "org.game.ui.controls::HSlider";
+		public static const VSCROLLBAR:String = "org.game.ui.controls::VScrollBar";
+		public static const VSLIDER:String = "org.game.ui.controls::VSlider";
+		
 		//-----------------------------------------------------------------------------
 		// Constructor
 		//-----------------------------------------------------------------------------

@@ -19,5 +19,12 @@ package org.game.ui.core {
 //		function set height(value:Number):void;
 //		function get width():Number;
 //		function get height():Number;
+		function getExplicitOrMeasuredWidth():Number;
+		function getExplicitOrMeasuredHeight():Number;
+		function get explicitHeight():Number;
+		function set explicitHeight(value:Number):void;
+		
+		function get explicitWidth():Number;
+		function set explicitWidth(value:Number):void;
 	}
 }

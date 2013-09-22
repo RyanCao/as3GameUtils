@@ -16,7 +16,6 @@ package org.game.ui.core
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
-	import flash.geom.Point;
 	
 	import org.game.gameant;
 	import org.game.ui.events.UIObjectEvent;
@@ -267,7 +266,7 @@ package org.game.ui.core
 		{
 			return _defaultStyleName;
 		}
-
+		
 		public function set defaultStyleName(value:String):void
 		{
 			_defaultStyleName = value ;
@@ -294,9 +293,9 @@ package org.game.ui.core
 			if(StyleDeclaration(deferredSetStyles).getStyle(styleProp)!=newValue){
 				StyleDeclaration(deferredSetStyles).setStyle(styleProp, newValue);  
 				styleChanged = true;
-//				invalidateProperties();
-//				invalidateSize();
-//				invalidateDisplayList();
+				//				invalidateProperties();
+				//				invalidateSize();
+				//				invalidateDisplayList();
 			}
 		}
 		
@@ -535,10 +534,10 @@ package org.game.ui.core
 				}
 				else
 				{
-//					var textField:IUITextField = childList.getChildAt(i) as IUITextField;
-//					
-//					if (textField)
-//						textField.nestLevel = value;
+					//					var textField:IUITextField = childList.getChildAt(i) as IUITextField;
+					//					
+					//					if (textField)
+					//						textField.nestLevel = value;
 				}
 			}
 		}
@@ -637,7 +636,7 @@ package org.game.ui.core
 		}
 		
 		gameant final function $addChildAt(child:DisplayObject,
-											   index:int):DisplayObject
+										   index:int):DisplayObject
 		{
 			return super.addChildAt(child, index);
 		}
@@ -739,19 +738,19 @@ package org.game.ui.core
 		//  	styleManager
 		//----------------------------------
 		
-//		private var _styleManager:IStyleManager
-//		
-//		public function get styleManager():IStyleManager
-//		{
-//			if(!_styleManager)
-//				_styleManager = StyleManager.getStyleManger();
-//			return _styleManager;
-//		}
-//		
-//		public function set styleManager(value:IStyleManager):void
-//		{
-//			_styleManager = value;
-//		}
+		//		private var _styleManager:IStyleManager
+		//		
+		//		public function get styleManager():IStyleManager
+		//		{
+		//			if(!_styleManager)
+		//				_styleManager = StyleManager.getStyleManger();
+		//			return _styleManager;
+		//		}
+		//		
+		//		public function set styleManager(value:IStyleManager):void
+		//		{
+		//			_styleManager = value;
+		//		}
 		
 		//------------------------------
 		//		enabled
@@ -768,6 +767,25 @@ package org.game.ui.core
 			_enabled = value;
 			
 			this.mouseEnabled = this.mouseChildren = value;
+		}
+		
+		/**
+		 * 移动UI对象到指定地点 
+		 * @param x
+		 * @param y
+		 * 
+		 */	
+		public function move(x:Number, y:Number):void
+		{
+			if (x != this.x)
+			{
+				super.x  = x;
+			}
+			
+			if (y != this.y)
+			{
+				super.y  = y;
+			}
 		}
 	}
 }

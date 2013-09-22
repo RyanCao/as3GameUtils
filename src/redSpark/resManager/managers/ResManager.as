@@ -1,6 +1,19 @@
 /*******************************************************************************
  * Class name:	ResManager.as
- * Description:	
+ * Description:	使用說明:<br>
+ * Example:	<code>
+ 			var urlData :ResData  = new ResData(url);
+ 			CResManager.instance().rcant::load(urlData.resType, urlData.url, urlData.loadLevel, null, loadResComplete, null, onLoaderError,true,false);
+			 
+			參數說明： type 加載類型    url 加載文件地址  loadlevel 加載文件加載優先級   ct 加載文件加載的域  
+			onCompleteHandle 加載成功函數   onProgressHandle  加載進度函數  onErrorHandle  加載出錯函數
+			init 加載成功以後是否初始化 默認是二進制文件  ,isNew 加載成功以後是否新建一個實例
+			
+			onCompleteHandle： isNew 為否的時候用這個
+			mc = (ResManager.getInstance().getResByUrl(_url));
+			isNew 為真的時候用這個
+			mc = evt.res.content ;
+			</code>
  * Author:		ryancao
  * Create:		Sep 19, 2012 11:52:42 AM
  * Update:		Sep 19, 2012 11:52:42 AM
