@@ -8,7 +8,12 @@ package org.rcSpark.resManager.res
 	//  Imports
 	//
 	//--------------------------------------------------------------------------
+	import flash.events.Event;
 	import flash.events.IEventDispatcher;
+	import flash.net.URLLoader;
+	import flash.system.LoaderContext;
+	import flash.utils.ByteArray;
+	
 	import org.rcSpark.resManager.data.ResData;
 	
 	
@@ -27,7 +32,7 @@ package org.rcSpark.resManager.res
 		//  Variables
 		//
 		//--------------------------------------------------------------------------
-		
+		public var data:* ;
 		//--------------------------------------------------------------------------
 		//
 		//  Constructor
@@ -43,5 +48,18 @@ package org.rcSpark.resManager.res
 		//  methods
 		//
 		//--------------------------------------------------------------------------
+		override public function loadBytes(bytes:ByteArray, ct:LoaderContext):void
+		{
+			try
+			{
+				data = bytes.readUTFBytes(bytes.bytesAvailable);
+				_content = data ;
+				super.onCompleteHandler(new Event(""));
+			}
+			catch(e:*)
+			{
+				throw(new Error("ResError--:TextRes"+this.toString()));
+			}
+		}
 	}
 }

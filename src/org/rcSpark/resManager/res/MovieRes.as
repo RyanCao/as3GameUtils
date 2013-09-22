@@ -58,9 +58,9 @@ package org.rcSpark.resManager.res
 			try
 			{
 				var loader:Loader=_loader as Loader;
-				if(!loader.hasEventListener(Event.COMPLETE))
+				if(!loader.contentLoaderInfo.hasEventListener(Event.COMPLETE))
 					loader.contentLoaderInfo.addEventListener(Event.COMPLETE, onCompleteHandler);
-				if(!loader.hasEventListener(IOErrorEvent.IO_ERROR))
+				if(!loader.contentLoaderInfo.hasEventListener(IOErrorEvent.IO_ERROR))
 					loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, onErrorHandle);
 				loader.loadBytes(bytes, ct);
 			}
@@ -101,11 +101,12 @@ package org.rcSpark.resManager.res
 		
 		override public function dispose():void
 		{
+			super.dispose();
 			var loader:Loader=_loader as Loader;
-			if(loader.hasEventListener(Event.COMPLETE))
-				loader.removeEventListener(Event.COMPLETE, onCompleteHandler);
-			if(loader.hasEventListener(IOErrorEvent.IO_ERROR))
-				loader.removeEventListener(IOErrorEvent.IO_ERROR, onErrorHandle);
+			if(loader.contentLoaderInfo.hasEventListener(Event.COMPLETE))
+				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, onCompleteHandler);
+			if(loader.contentLoaderInfo.hasEventListener(IOErrorEvent.IO_ERROR))
+				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, onErrorHandle);
 			loader.unload();
 			loader = null ;
 			DisposeUtil.dispose(_content);

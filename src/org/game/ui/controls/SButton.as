@@ -8,7 +8,7 @@ package org.game.ui.controls {
 	 */
 	public class SButton extends BaseUI {
 		private var _simbutton : SimpleButton;
-		private var _lab : Label;
+		private var _lab : SLabel;
 		private var _defaultW:int = 60;
 		private var _defaultH : int = 20;
 		private var _label : String;
@@ -29,7 +29,7 @@ package org.game.ui.controls {
 			overstate = new RectSprite(0xaaaaaa);
 			hitstate = upstate;
 			_simbutton = new SimpleButton(upstate,overstate,downstate,hitstate);
-			_lab = new Label();
+			_lab = new SLabel();
 			_lab.mouseEnabled = false;
 			this.mouseEnabled = false ;
 			addChild(_simbutton);
