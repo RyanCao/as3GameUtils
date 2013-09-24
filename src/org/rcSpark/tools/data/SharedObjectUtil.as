@@ -37,7 +37,12 @@ package org.rcSpark.tools.data
 			if(localData&&localData[key]!=null)
 				return localData[key];
 			var _so:SharedObject = SharedObject.getLocal(localName) ;
-			return isExist(key) ? _so.data.cookie[key]:null ;
+			if(isExist(key))
+			{
+				localData[key] = _so.data.cookie[key];
+				return localData[key];
+			}
+			return null ;
 		}
 		/**
 		 * 永久存取在机器上 
@@ -82,6 +87,7 @@ package org.rcSpark.tools.data
 					obj = null ;
 					return null ;
 				}else{
+					cookieData[key] = obj ;
 					return obj.value ;
 				}
 			}
@@ -116,7 +122,7 @@ package org.rcSpark.tools.data
 			_so.data.cookie[key] = obj ;
 			return _so.flush();
 		}
-		
+		   
 		private static function isExist(key:String):Boolean{
 			var _so:SharedObject = SharedObject.getLocal(localName) ;
 			return _so.data.cookie != null && _so.data.cookie[key]!=null ;
