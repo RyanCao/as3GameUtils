@@ -71,6 +71,19 @@ package org.game.ui.controls.pageClasses {
 			_pageArrowLeft.mouseEnabled = Boolean(status&PageEvent.NEXT_CODE);
 		}
 		
+		public function dispose():void{
+			_pageArrowLeft.removeEventListener(MouseEvent.CLICK, onPreClick);
+			_pageArrowRight.removeEventListener(MouseEvent.CLICK, onNextClick);
+			if(contains(_pageArrowLeft))
+				removeChild(_pageArrowLeft);
+			if(contains(_pageArrowRight))
+				removeChild(_pageArrowRight);
+			if(contains(_pageString))
+				removeChild(_pageString);
+			if(this.parent)
+				parent.removeChild(this);
+		}
+		
 	}
 }
 

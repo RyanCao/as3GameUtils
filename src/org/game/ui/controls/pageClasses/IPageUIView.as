@@ -16,5 +16,9 @@ package org.game.ui.controls.pageClasses {
 		 * NEXT_STATUS = status & PageEvent.NEXT_CODE;
 		 */
 		function setStatus(status:int):void ;
+		/**
+		 * 销毁函数
+		 */		
+		function dispose():void;
 	}
 }

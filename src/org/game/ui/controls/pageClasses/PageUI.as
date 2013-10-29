@@ -243,7 +243,20 @@ package org.game.ui.controls.pageClasses
 		}
 		
 		public function dispose():void{
-			
+			_eventDispatcher = null ;
+			if(view){
+				view.removeEventListener(PageEvent.HOME_PAGE, onPageChangeHandle);
+				view.removeEventListener(PageEvent.END_PAGE, onPageChangeHandle);
+				view.removeEventListener(PageEvent.PRE_PAGE, onPageChangeHandle);
+				view.removeEventListener(PageEvent.NEXT_PAGE, onPageChangeHandle);
+				if(owner && owner.contains(view as DisplayObject)){
+					owner.removeChild(view as DisplayObject);
+					owner = null ;
+				}
+				view.dispose();
+				view = null ;
+			}
+			_dataprovider = null ;
 		}
 	}
 	
