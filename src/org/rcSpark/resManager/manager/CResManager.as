@@ -55,7 +55,11 @@ package org.rcSpark.resManager.manager
 		
 		public static var OVER_LOOK:Boolean = false ;
 		public static var OVER_TIME:uint = 5 ;
-		
+        /**
+         * 是否将文件自动保存到缓存中
+         */
+		public static var AUTO_SAVE:Boolean = true ;
+
 		private static var __instance : CResManager;
 		/**
 		 * 资源地址库[String]

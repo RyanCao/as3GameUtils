@@ -73,7 +73,7 @@ package redSpark.resManager.managers
 		 * @return 
 		 * 
 		 */		
-		public function getResByUrl(value:String,type:String=ResType.MOVIE):*
+		public function getResByUrl(value:String):*
 		{
 			var res:BaseRes = getBaseResByUrl(value) as BaseRes;
 			if(res)
