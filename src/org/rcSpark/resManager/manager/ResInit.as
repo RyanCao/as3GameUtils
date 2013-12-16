@@ -85,7 +85,6 @@ package org.rcSpark.resManager.manager
 			res.onInitCompleteHandle = onCompleteHandle;
 			res.url = data.url ;
 			res.addEventListener(DataEvent.COMPLETED,onResInitCompleteHandle);
-			//res.addEventListener(DataEvent.ERROR,onResInitErrorHandle);
 			res.loadBytes(data.ba,data.resCt);
 		}
 		
@@ -93,20 +92,13 @@ package org.rcSpark.resManager.manager
 		{
 			var res:BaseRes = event.target as BaseRes ;
 			res.removeEventListener(DataEvent.COMPLETED,onResInitCompleteHandle);
-			//res.removeEventListener(DataEvent.ERROR,onResInitErrorHandle);
-			var resEvent:ResEvent =new ResEvent(ResEvent.COMPLETED);
-			resEvent.inited = true ;
 			if(res.onInitCompleteHandle!=null){
+                var resEvent:ResEvent =new ResEvent(ResEvent.COMPLETED);
+                resEvent.inited = true ;
 				resEvent.res = res;
 				res.onInitCompleteHandle(resEvent);
 			}
 		}
 		
-		protected function onResInitErrorHandle(event:Event):void
-		{
-			var res:BaseRes = event.target as BaseRes ;
-			res.removeEventListener(DataEvent.COMPLETED,onResInitCompleteHandle);
-			///res.removeEventListener(DataEvent.ERROR,onResInitErrorHandle);
-		}
 	}
 }

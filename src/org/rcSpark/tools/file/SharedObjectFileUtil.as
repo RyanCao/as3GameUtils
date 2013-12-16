@@ -17,8 +17,6 @@ public class SharedObjectFileUtil {
     private static const INDEX_NAME:String = "index_name";
     //文件夹名
     private static const DIR_NAME:String = "files";
-    //文件类型
-    private static const FILE_TYPE_NAME:String = "type";
     /**
      * 索引文件
      * name1|ver1
@@ -71,14 +69,6 @@ public class SharedObjectFileUtil {
         return null ;
     }
 
-    public static function readFileDataType(key:String,ver:String=""):*{
-        var _so:SharedObject = SharedObject.getLocal(__domainName) ;
-        if(isFileExist(key,ver))
-        {
-            return _so.data[FILE_TYPE_NAME][key];
-        }
-        return null ;
-    }
     /**
      * 永久存取在机器上
      * @param key
@@ -88,19 +78,14 @@ public class SharedObjectFileUtil {
      * @return
      *
      */
-    public static function saveFileData(key:String,value:*,fileType:String,ver:String=""):String{
+    public static function saveFileData(key:String,value:*,ver:String=""):String{
         var _so:SharedObject = SharedObject.getLocal(__domainName) ;
         if(_so.data[DIR_NAME] == null){
             _so.data[DIR_NAME] = {} ;
             _so.flush();
         }
-        if(_so.data[FILE_TYPE_NAME] == null){
-            _so.data[FILE_TYPE_NAME] = {} ;
-            _so.flush();
-        }
         saveIndexData(key,ver);
         _so.data[DIR_NAME][key] = value ;
-        _so.data[FILE_TYPE_NAME][key] = fileType ;
         return _so.flush();
     }
 
