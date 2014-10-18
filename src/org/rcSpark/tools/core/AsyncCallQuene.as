@@ -68,8 +68,8 @@ public class AsyncCallQuene {
         while(isCPUIdle){
             if(asyncQueue.length<1)
                 break;
-            var async:Function = asyncQueue.pop();
-            var para:Array = asyncQueuePara.pop();
+            var async:Function = asyncQueue.shift();
+            var para:Array = asyncQueuePara.shift();
             if(para){
                 async.apply(null,para);
             }else{
