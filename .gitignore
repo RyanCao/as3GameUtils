@@ -1,8 +1,10 @@
-*.iml
+.settings
+*bin*
 .actionScriptProperties
 .flexLibProperties
 .project
-.settings/
-.idea/
-bin/
-libs/
+.idea
+*.iml
+output
+out
+libs
