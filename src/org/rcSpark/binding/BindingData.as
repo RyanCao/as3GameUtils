@@ -14,18 +14,18 @@ public class BindingData implements IBindingData {
     private var _dataChanged:Signal
 
     public function BindingData() {
-        _dataChanged = new Signal(Array)
     }
 
     //-----------------------------------------
     //Methods
     //-----------------------------------------
     public function update(propertyName:String,protertyValue:*):void{
-        _dataChanged.dispatch([propertyName,protertyValue]);
+        if(_dataChanged)
+            _dataChanged.dispatch([propertyName,protertyValue]);
     }
 
     public function get dataChanged():ISignal {
-        return _dataChanged;
+        return _dataChanged ||= new Signal(Array);
     }
 }
 }
