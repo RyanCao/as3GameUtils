@@ -144,6 +144,8 @@ package org.rcSpark.tools.core
 				else
 					(list[i] as Function)();
 			}
+            list.length = 0;
+            listPara.length = 0;
 		}
 		
 		private function tickHandler(event:TickEvent):void
@@ -162,6 +164,8 @@ package org.rcSpark.tools.core
 				else
 					(list[i] as Function)();
 			}
+            list.length = 0;
+            listPara.length = 0;
 		}
 	}
 	

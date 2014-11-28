@@ -15,9 +15,6 @@ package org.game.ui.managers
 	import flash.events.EventDispatcher;
 	import flash.events.IEventDispatcher;
 	
-	import mx.events.DynamicEvent;
-	
-	import org.game.ui.core.UIComponentGlobals;
 	import org.game.ui.managers.layoutClasses.PriorityQueue;
 	
 	
