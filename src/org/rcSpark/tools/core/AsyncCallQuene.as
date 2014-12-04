@@ -14,7 +14,7 @@ public class AsyncCallQuene {
     /**
      * 单个时间片内可执行最长时间
      */
-    private static const tickMaxTime:uint = 20;
+    private static const tickMaxTime:uint = 15;
 
     /**
      * 函数
